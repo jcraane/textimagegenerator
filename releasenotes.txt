@@ -1,0 +1,4 @@
+1.1
+- Optimized the JPEG compression to get a better quality image in trade of image size.
+- Created the ImageWriter and ImageWriterFactory to export images to PNG and JPEG. Deprecated the
+method to export to PNG and JPEG in TextImage.

@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.capaxit.textimage</groupId>
+    <artifactId>TextImageGen</artifactId>
+    <packaging>jar</packaging>
+    <version>2.0-SNAAPSHOT</version>
+    <name>TextImageGenerator</name>
+
+    <scm>
+        <connection>scm:svn:https://textimagegenerator.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://textimagegenerator.googlecode.com/svn/trunk</developerConnection>
+        <url>https://textimagegenerator.googlecode.com/svn/trunk</url>
+    </scm>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifestEntries>
+                <Build-Jdk>${java.version}}</Build-Jdk>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,66 @@
+ant.property(file: 'build.properties')
+def antProperty = ant.project.properties
+
+final appName = "image-gen"
+final buildHome = "${basedir}/build"
+final distHome = "${basedir}/dist"
+final srcMain = "${basedir}/src/main"
+final srcMainJava = "${basedir}/src/main/java"
+final srcMainResources = "${basedir}/src/main/resources"
+final srcTestJava = "${basedir}/src/test/java"
+final srcTestResources = "${basedir}/src/test/resources"
+
+final compileDebug = true
+final compiledeprecation = false
+final compileOptimize = true
+
+final dirsToClean = [buildHome, distHome]
+
+target (clean: 'clean all output directories') {
+    dirsToClean.each {
+        delete(dir: it)
+    }
+}
+
+target (compile: 'Compile Java sources') {
+    mkdir(dir: "${buildHome}/bin")
+
+    javac(
+        srcdir: srcMainJava,
+        destDir: "${buildHome}/bin",
+        debug: compileDebug,
+        deprecation: compiledeprecation,
+        optimize: compileOptimize,
+        source: "1.5")
+
+    copy(todir: "${buildHome}/bin") {
+        fileset(dir: srcMainResources, excludes: "**/*.java")
+    }
+}
+
+target (genJavadoc: 'Create Javadoc API documentation') {
+    mkdir(dir: "${distHome}/docs/api")
+    javadoc(
+        sourcepath: srcMainJava,
+        destDir: "${distHome}/docs/api",
+        packagenames: "*")
+}
+
+target (dist: 'Create binary distribution') {
+    depends(clean, compile, genJavadoc)
+
+    jar(
+        jarfile: "${distHome}/${appName}-${antProperty.'app.version'}.jar",
+        basedir: "${buildHome}/bin"
+    ) {
+        manifest() {
+            attribute(name: "Implementation-Vendor", value: "JamieCraane")
+            attribute(name: "Implementation-Title", value: "ImageGen")
+        }
+    }
+
+    zip(zipfile: "${distHome}/api-docs-${antProperty.'app.version'}.zip", basedir: "${distHome}/docs/api")
+    zip(zipfile: "${distHome}/src-${antProperty.'app.version'}.jar", basedir: "${srcMain}", excludes: "**/*.iml")
+}
+
+setDefaultTarget(dist)
