@@ -33,9 +33,10 @@ public class HtmlTextImage {
     }
 
     private void runExample() throws Exception {
-        String html = "<p>Dit is een test</p>" +
+        String html = "<p><u>Dit is een test</u></p>" +
                 "<p>Nog een regel text</p>" +
-                "<p><u>Underlined</u></p>"; // TODO: Fix, this is written twice.
+                "<u>Underlined text</u>" +
+                "<u>More underlined</u>";
         TextImage textImage = HtmlTextImageFactory.fromHtml(html);
         ImageWriter imageWriter = ImageWriterFactory.getImageWriter(ImageType.PNG);
         imageWriter.writeImageToFile(textImage, new File("html.png"));

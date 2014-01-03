@@ -32,6 +32,10 @@ public class TextImageHtmlHandler extends DefaultHandler {
     private static final String U = "u";
     private static final String P = "p";
 
+    private int tagNestLevel = 0;
+    private String previousTag;
+    private boolean charactersAlreadyWritten;
+
     private final TextImage textImage;
     private StringBuilder sb = new StringBuilder(100);
 
@@ -49,19 +53,41 @@ public class TextImageHtmlHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         sb.setLength(0);
         if (U.equalsIgnoreCase(qName)) {
+            previousTag = qName;
+            tagNestLevel++;
             textImage.withFontStyle(Style.UNDERLINED);
+        }
+
+        if (P.equalsIgnoreCase(qName)) {
+            previousTag = qName;
+            tagNestLevel++;
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+        tagNestLevel--;
+
         if (U.equalsIgnoreCase(qName)) {
-            textImage.write(sb.toString());
+            if (!charactersAlreadyWritten) {
+                textImage.write(sb.toString());
+                charactersAlreadyWritten = true;
+            }
             textImage.withFontStyle(Style.PLAIN);
         }
 
         if (P.equalsIgnoreCase(qName)) {
-            textImage.writeLine(sb.toString());
+            if (!charactersAlreadyWritten) {
+                textImage.write(sb.toString());
+                charactersAlreadyWritten = true;
+            }
+
+            textImage.newLine();
+        }
+
+        if (tagNestLevel <= 0) {
+            charactersAlreadyWritten = false;
+            tagNestLevel = 0;
         }
     }
 
