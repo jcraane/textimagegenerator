@@ -12,23 +12,23 @@ import java.awt.image.BufferedImage;
 public final class WaterMarkImageBuilder {
 	private final int width;
 
-	private final int heigth;
+	private final int height;
 
 	private final Margin margin;
 
     /**
      * Constructs a new instance of the WaterMarkImageBuilder class.
      * @param width The width of the image returned by this builder.
-     * @param heigth The height of the image returned by this builder.
+     * @param height The height of the image returned by this builder.
      * @param margin The margins used of the image returned by this builder.
      */
-    public WaterMarkImageBuilder(final int width, final int heigth, final Margin margin) {
+    public WaterMarkImageBuilder(final int width, final int height, final Margin margin) {
         if (margin == null) {
             throw new IllegalArgumentException("The margin may not be null.");
         }
 
 		this.width = width;
-		this.heigth = heigth;
+		this.height = height;
 		this.margin = margin;
 	}
 
@@ -39,10 +39,10 @@ public final class WaterMarkImageBuilder {
 	 * @return Watermarked image.
 	 */
 	public TextImage build(final BufferedImage waterMark) {
-		TextImageImpl image = new TextImageImpl(width, heigth);
+		TextImageImpl image = new TextImageImpl(width, height);
 
 		for (int x = 0; x < this.width; x += waterMark.getWidth()) {
-			for (int y = 0; y < this.heigth; y += waterMark.getHeight()) {
+			for (int y = 0; y < this.height; y += waterMark.getHeight()) {
 				image.write(waterMark, x, y);
 			}
 		}
