@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.capaxit.textimage</groupId>
     <artifactId>TextImageGen</artifactId>
@@ -6,14 +7,15 @@
     <version>2.0-SNAAPSHOT</version>
     <name>TextImageGenerator</name>
 
-    <scm>
-        <connection>scm:svn:https://textimagegenerator.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://textimagegenerator.googlecode.com/svn/trunk</developerConnection>
-        <url>https://textimagegenerator.googlecode.com/svn/trunk</url>
-    </scm>
+    <developers>
+        <developer>
+            <name>Jamie Craane</name>
+            <email>jcraane@gmail.com</email>
+            <organization>CapaxIt</organization>
+        </developer>
+    </developers>
 
     <dependencies>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -22,22 +24,53 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-capaxit-releases</id>
+            <name>Maven Repo for Capax IT (releases)</name>
+            <url>svn:https://capaxit-maven-repo.googlecode.com/svn/maven/releases</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>maven-capaxit-snapshot</id>
+            <name>Maven Repo Capax IT (snapshots)</name>
+            <url>svn:https://capaxit-maven-repo.googlecode.com/svn/maven/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.1</version>
-        <configuration>
-          <archive>
-            <index>true</index>
-            <manifestEntries>
-                <Build-Jdk>${java.version}}</Build-Jdk>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+        <extensions>
+            <extension>
+                <groupId>org.jvnet.wagon-svn</groupId>
+                <artifactId>wagon-svn</artifactId>
+                <version>1.9</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifestEntries>
+                            <Build-Jdk>${java.version}}</Build-Jdk>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -30,7 +30,7 @@ public class Advanced {
                 "/org/capaxit/imagegenerator/examples/images/warning2.gif");
         BufferedImage warningSmall = ImageIO.read(is);
         is = this.getClass().getResourceAsStream(
-                "/org/capaxit/imagegenerator/images/exclamation_triangle_green.png");
+                "/org/capaxit/imagegenerator/examples/images/exclamation_triangle_green.png");
         BufferedImage warningBig = ImageIO.read(is);
 
         TextImage textImage = new TextImageImpl(450, 400, new Margin(5, 5));

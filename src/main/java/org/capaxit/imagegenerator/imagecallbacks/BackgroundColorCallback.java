@@ -24,13 +24,9 @@ public final class BackgroundColorCallback implements TextImageCallback {
      * @param textImage An instance of TextImage.
      */
     public BackgroundColorCallback(final Color backgroundColor, final Color textColor, final TextImage textImage) {
-        Validate.notNull(backgroundColor, " The backgroundColor may not be null.");
-        Validate.notNull(textColor, " The textColor may not be null.");
-        Validate.notNull(textImage, " The textImage may not be null.");
-
-        this.backgroundColor = backgroundColor;
-        this.textColor = textColor;
-        this.textImage = textImage;
+        this.backgroundColor =  Validate.notNull(backgroundColor, " The backgroundColor may not be null.");
+        this.textColor = Validate.notNull(textColor, " The textColor may not be null.");
+        this.textImage = Validate.notNull(textImage, " The textImage may not be null.");
     }
 
     public void doWithGraphics(final Graphics2D graphics) {

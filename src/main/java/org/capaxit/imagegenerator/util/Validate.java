@@ -15,9 +15,11 @@ public final class Validate {
      * @param param The parameter to check for nullity.
      * @param message The message to throw in an IllegalArgumentException if the param is null.
      */
-    public static void notNull(Object param, String message) {
+    public static <T> T notNull(final T param, final String message) {
         if (param == null) {
             throw new IllegalArgumentException(message);
         }
+
+        return param;
     }
 }

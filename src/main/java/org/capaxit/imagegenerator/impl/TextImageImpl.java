@@ -83,9 +83,8 @@ public final class TextImageImpl implements TextImage {
     public TextImageImpl(final int width, final int height, final Margin margin) {
         this(width, height);
 
-        Validate.notNull(margin, "The margin may not be null.");
+        this.margin = Validate.notNull(margin, "The margin may not be null.");
 
-        this.margin = margin;
         this.yPos = this.margin.getTop();
         this.xPos = this.margin.getLeft();
     }
@@ -94,9 +93,7 @@ public final class TextImageImpl implements TextImage {
      * {@inheritDoc}
      */
     public TextImage useTextWrapper(final TextWrapper wrapper) {
-        Validate.notNull(wrapper, "The wrapper may not be null.");
-
-        this.wrapper = wrapper;
+        this.wrapper = Validate.notNull(wrapper, "The wrapper may not be null.");
         return this;
     }
 
@@ -234,9 +231,7 @@ public final class TextImageImpl implements TextImage {
      * {@inheritDoc}
      */
     public TextImage withFont(final Font font) {
-        Validate.notNull(font, "The font may not be null.");
-
-        this.previouslyUsedFont = font;
+        this.previouslyUsedFont = Validate.notNull(font, "The font may not be null.");
         this.graphics.setFont(font);
         return this;
     }
@@ -245,9 +240,7 @@ public final class TextImageImpl implements TextImage {
      * {@inheritDoc}
      */
     public TextImage setTextAligment(final Alignment alignment) {
-        Validate.notNull(alignment, "The alignment may not be null.");
-
-        this.alignment = alignment;
+        this.alignment = Validate.notNull(alignment, "The alignment may not be null.");
         return this;
     }
 
@@ -255,9 +248,7 @@ public final class TextImageImpl implements TextImage {
      * {@inheritDoc}
      */
     public TextImage withFontStyle(final Style style) {
-        Validate.notNull(style, "The style may not be null.");
-
-        this.style = style;
+        this.style = Validate.notNull(style, "The style may not be null.");
         return this;
     }
 
@@ -265,9 +256,7 @@ public final class TextImageImpl implements TextImage {
      * {@inheritDoc}
      */
     public TextImage withColor(final Color color) {
-        Validate.notNull(color, "The color may not be null.");
-
-        this.previouslyUsedColor = color;
+        this.previouslyUsedColor = Validate.notNull(color, "The color may not be null.");
         this.graphics.setColor(color);
         return this;
     }
@@ -336,7 +325,6 @@ public final class TextImageImpl implements TextImage {
     public void setMargin(final Margin margin) {
         Validate.notNull(margin, "The margin may not be null.");
 
-        // TODO Should we allow to set the margins after a fully constructed textimage?
         this.xPos = margin.getTop();
         this.yPos = margin.getLeft();
         this.margin = margin;
