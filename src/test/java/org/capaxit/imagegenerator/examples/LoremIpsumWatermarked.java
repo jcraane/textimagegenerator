@@ -28,7 +28,7 @@ public class LoremIpsumWatermarked {
 		
 		// 2. Load in the image which is used as watermark.
 		InputStream is = this.getClass().getResourceAsStream(
-				"/nl/jamiecraane/imagegenerator/resources/images/watermark.png");
+				"/org/capaxit/imagegenerator/images/watermark.png");
 		BufferedImage watermark = ImageIO.read(is);
 		
 		// 3. Use the WaterMarkImageBuilder to create a textimage with the specified image as a watermark

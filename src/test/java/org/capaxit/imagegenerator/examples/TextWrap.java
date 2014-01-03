@@ -23,7 +23,7 @@ public class TextWrap {
         TextImage textImage = new TextImageImpl(300, 550, new Margin(25, 5, 50, 0));
 
         InputStream is = this.getClass().getResourceAsStream(
-				"/nl/jamiecraane/imagegenerator/examples/fonts/cour.ttf");
+				"/org/capaxit/imagegenerator/examples/fonts/cour.ttf");
         Font usedFont = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(11.0f);
 
         textImage.useTextWrapper(new GreedyTextWrapper());
