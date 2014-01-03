@@ -136,8 +136,7 @@ public interface TextImage {
 	 * font is determined by the last call to the addText* methods with the
 	 * given font. If none of these methods are used, no font is available yet,
 	 * you can set one with the {@link #withFont(Font)} and
-	 * {@link #withFontAndColor(Font, Color)} methods.
-	 * 
+	 *
 	 * @return this
 	 */
 	TextImage newLine();

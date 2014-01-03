@@ -68,7 +68,6 @@ public final class GreedyTextWrapper implements TextWrapper {
 
         // In case the last word did not fit in
         if (removed) {
-            removed = false;
             builder.append(word.trim());
         }
 
