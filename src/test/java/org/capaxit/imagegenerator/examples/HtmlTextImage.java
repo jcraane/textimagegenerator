@@ -23,6 +23,7 @@ import org.capaxit.imagegenerator.imageexporter.ImageWriter;
 import org.capaxit.imagegenerator.imageexporter.ImageWriterFactory;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by jcraane on 03-01-14.
@@ -33,12 +34,18 @@ public class HtmlTextImage {
     }
 
     private void runExample() throws Exception {
-        String html = "<p><u>Dit is een test</u></p>" +
+        parseAndWriteHtml("<p><u>Dit is een test</u></p>" +
                 "<p>Nog een regel text</p>" +
                 "<u>Underlined text</u>" +
-                "<u>More underlined</u>";
+                "<u>More underlined</u>", "paragraph.png");
+        parseAndWriteHtml("<p>This is a line</p><br/><br/><p>Some text<p>", "newlines.png");
+    }
+
+    private void parseAndWriteHtml(String html, String fileName) throws IOException {
         TextImage textImage = HtmlTextImageFactory.fromHtml(html);
         ImageWriter imageWriter = ImageWriterFactory.getImageWriter(ImageType.PNG);
-        imageWriter.writeImageToFile(textImage, new File("html.png"));
+        imageWriter.writeImageToFile(textImage, new File(fileName));
     }
+
+
 }

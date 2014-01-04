@@ -23,6 +23,8 @@ import org.capaxit.imagegenerator.TextImage;
  * Created by jcraane on 04-01-14.
  */
 public class Underline implements Tag {
+    public static final String KEY = "u";
+
     public int start(final TextImage textImage, final int level) {
         textImage.withFontStyle(Style.UNDERLINED);
         return level + 1;

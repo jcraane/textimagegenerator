@@ -19,12 +19,17 @@ package org.capaxit.imagegenerator.html.tags;
 import org.capaxit.imagegenerator.TextImage;
 
 /**
- * Represents an HTML tag.
- *
  * Created by jcraane on 04-01-14.
  */
-public interface Tag {
-    int start(TextImage textImage, int level);
+public class Break implements Tag {
+    public static final String KEY = "br";
 
-    boolean end(TextImage textImage, String textToWrite, boolean shouldWrite);
+    public int start(final TextImage textImage, final int level) {
+        return level;
+    }
+
+    public boolean end(final TextImage textImage, final String textToWrite, final boolean shouldWrite) {
+        textImage.newLine();
+        return shouldWrite;
+    }
 }

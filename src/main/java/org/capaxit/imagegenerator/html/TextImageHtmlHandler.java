@@ -17,6 +17,7 @@
 package org.capaxit.imagegenerator.html;
 
 import org.capaxit.imagegenerator.TextImage;
+import org.capaxit.imagegenerator.html.tags.Break;
 import org.capaxit.imagegenerator.html.tags.Paragraph;
 import org.capaxit.imagegenerator.html.tags.Tag;
 import org.capaxit.imagegenerator.html.tags.Underline;
@@ -34,17 +35,15 @@ import java.util.Map;
  * Created by jcraane on 03-01-14.
  */
 public class TextImageHtmlHandler extends DefaultHandler {
-    private static final String U = "u";
-    private static final String P = "p";
-
     private int tagNestLevel = 0;
     private boolean charactersAlreadyWritten;
 
     private static final Map<String, Tag> tagImplementationMap = new HashMap<String, Tag>();
 
     static {
-        tagImplementationMap.put(U, new Underline());
-        tagImplementationMap.put(P, new Paragraph());
+        tagImplementationMap.put(Underline.KEY, new Underline());
+        tagImplementationMap.put(Paragraph.KEY, new Paragraph());
+        tagImplementationMap.put(Break.KEY, new Break());
     }
 
     private final TextImage textImage;

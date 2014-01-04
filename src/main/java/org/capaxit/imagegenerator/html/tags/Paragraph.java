@@ -22,6 +22,8 @@ import org.capaxit.imagegenerator.TextImage;
  * Created by jcraane on 04-01-14.
  */
 public class Paragraph implements Tag{
+    public static final String KEY = "p";
+
     public int start(TextImage textImage, int level) {
         return level + 1;
     }
