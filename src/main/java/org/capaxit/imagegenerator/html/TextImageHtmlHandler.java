@@ -16,12 +16,17 @@
 
 package org.capaxit.imagegenerator.html;
 
-import org.capaxit.imagegenerator.Style;
 import org.capaxit.imagegenerator.TextImage;
+import org.capaxit.imagegenerator.html.tags.Paragraph;
+import org.capaxit.imagegenerator.html.tags.Tag;
+import org.capaxit.imagegenerator.html.tags.Underline;
 import org.capaxit.imagegenerator.impl.TextImageImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handler which transforms HTML elements to TextImage methods calls.
@@ -33,8 +38,14 @@ public class TextImageHtmlHandler extends DefaultHandler {
     private static final String P = "p";
 
     private int tagNestLevel = 0;
-    private String previousTag;
     private boolean charactersAlreadyWritten;
+
+    private static final Map<String, Tag> tagImplementationMap = new HashMap<String, Tag>();
+
+    static {
+        tagImplementationMap.put(U, new Underline());
+        tagImplementationMap.put(P, new Paragraph());
+    }
 
     private final TextImage textImage;
     private StringBuilder sb = new StringBuilder(100);
@@ -52,15 +63,10 @@ public class TextImageHtmlHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         sb.setLength(0);
-        if (U.equalsIgnoreCase(qName)) {
-            previousTag = qName;
-            tagNestLevel++;
-            textImage.withFontStyle(Style.UNDERLINED);
-        }
 
-        if (P.equalsIgnoreCase(qName)) {
-            previousTag = qName;
-            tagNestLevel++;
+        Tag tag = tagImplementationMap.get(qName.toLowerCase());
+        if (tag != null) {
+            tagNestLevel = tag.start(textImage, tagNestLevel);
         }
     }
 
@@ -68,23 +74,15 @@ public class TextImageHtmlHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         tagNestLevel--;
 
-        if (U.equalsIgnoreCase(qName)) {
-            if (!charactersAlreadyWritten) {
-                textImage.write(sb.toString());
-                charactersAlreadyWritten = true;
-            }
-            textImage.withFontStyle(Style.PLAIN);
+        Tag tag = tagImplementationMap.get(qName.toLowerCase());
+        if (tag != null) {
+            tag.end(textImage, sb.toString(), charactersAlreadyWritten);
         }
 
-        if (P.equalsIgnoreCase(qName)) {
-            if (!charactersAlreadyWritten) {
-                textImage.write(sb.toString());
-                charactersAlreadyWritten = true;
-            }
+        reset();
+    }
 
-            textImage.newLine();
-        }
-
+    private void reset() {
         if (tagNestLevel <= 0) {
             charactersAlreadyWritten = false;
             tagNestLevel = 0;
