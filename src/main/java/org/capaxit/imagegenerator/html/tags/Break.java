@@ -30,6 +30,6 @@ public class Break implements Tag {
 
     public boolean end(final TextImage textImage, final String textToWrite, final boolean charactersAlreadyWritten) {
         textImage.newLine();
-        return shouldWrite;
+        return charactersAlreadyWritten;
     }
 }
