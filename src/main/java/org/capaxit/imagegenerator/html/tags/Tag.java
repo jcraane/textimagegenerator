@@ -26,5 +26,5 @@ import org.capaxit.imagegenerator.TextImage;
 public interface Tag {
     int start(TextImage textImage, int level);
 
-    boolean end(TextImage textImage, String textToWrite, boolean shouldWrite);
+    boolean end(TextImage textImage, String textToWrite, boolean charactersAlreadyWritten);
 }

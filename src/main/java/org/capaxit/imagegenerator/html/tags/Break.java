@@ -28,7 +28,7 @@ public class Break implements Tag {
         return level;
     }
 
-    public boolean end(final TextImage textImage, final String textToWrite, final boolean shouldWrite) {
+    public boolean end(final TextImage textImage, final String textToWrite, final boolean charactersAlreadyWritten) {
         textImage.newLine();
         return shouldWrite;
     }
