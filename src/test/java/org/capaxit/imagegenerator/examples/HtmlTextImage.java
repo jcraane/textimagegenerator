@@ -35,6 +35,7 @@ public class HtmlTextImage {
     }
 
     private void runExample() throws Exception {
+
         parseAndWriteHtml(readFile("/org/capaxit/imagegenerator/examples/html/example_1.html"), "paragraph.png");
         /*parseAndWriteHtml("<p><u>Dit is een test</u></p>" +
                 "<p>Nog een regel text</p>" +
