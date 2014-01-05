@@ -17,6 +17,7 @@
 package org.capaxit.imagegenerator.examples;
 
 import org.capaxit.imagegenerator.TextImage;
+import org.capaxit.imagegenerator.examples.utils.StreamUtil;
 import org.capaxit.imagegenerator.html.HtmlTextImageFactory;
 import org.capaxit.imagegenerator.imageexporter.ImageType;
 import org.capaxit.imagegenerator.imageexporter.ImageWriter;
@@ -34,10 +35,11 @@ public class HtmlTextImage {
     }
 
     private void runExample() throws Exception {
-        parseAndWriteHtml("<p><u>Dit is een test</u></p>" +
+        parseAndWriteHtml(readFile("/org/capaxit/imagegenerator/examples/html/example_1.html"), "paragraph.png");
+        /*parseAndWriteHtml("<p><u>Dit is een test</u></p>" +
                 "<p>Nog een regel text</p>" +
                 "<u>Underlined text</u>" +
-                "<u>More underlined</u>", "paragraph.png");
+                "<u>More underlined</u>", "paragraph.png");*/
         parseAndWriteHtml("<p>This is a line</p><br/><br/><p>Some text<p>", "newlines.png");
     }
 
@@ -47,5 +49,7 @@ public class HtmlTextImage {
         imageWriter.writeImageToFile(textImage, new File(fileName));
     }
 
-
+    private String readFile(final String htmlFile) {
+        return StreamUtil.slurp(this.getClass().getResourceAsStream(htmlFile), 1024);
+    }
 }
