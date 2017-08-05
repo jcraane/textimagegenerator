@@ -4,7 +4,7 @@
     <groupId>org.capaxit.textimage</groupId>
     <artifactId>TextImageGen</artifactId>
     <packaging>jar</packaging>
-    <version>2.0-SNAAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <name>TextImageGenerator</name>
 
     <developers>
