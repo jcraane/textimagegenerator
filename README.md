@@ -11,5 +11,5 @@ packages for numerous examples of how to use this library.
 For an actual example see my blogpost about this project at http://jcraane.blogspot.com/2009/01/text-image-generator-example.html
 
 To use this library just add downloaded jar file to your projects classpath.
-This project has no dependencies on external libraries. The distributable can be found under downloads. 
+This project has minimal dependencies on external libraries (see pom.xml). The distributable can be found under downloads. 
 This jar is compatible with Java 5 or higher. A 1.4 compatible version is planned.
