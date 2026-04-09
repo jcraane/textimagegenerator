@@ -16,15 +16,30 @@
 
 package org.capaxit.imagegenerator.impl;
 
-import org.capaxit.imagegenerator.*;
-import org.capaxit.imagegenerator.textalign.*;
-import org.capaxit.imagegenerator.util.Validate;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.capaxit.imagegenerator.Align;
+import org.capaxit.imagegenerator.Alignment;
+import org.capaxit.imagegenerator.DrawableText;
+import org.capaxit.imagegenerator.Margin;
+import org.capaxit.imagegenerator.Style;
+import org.capaxit.imagegenerator.TextImage;
+import org.capaxit.imagegenerator.TextImageCallback;
+import org.capaxit.imagegenerator.TextWrapper;
+import org.capaxit.imagegenerator.textalign.Center;
+import org.capaxit.imagegenerator.textalign.GreedyTextWrapper;
+import org.capaxit.imagegenerator.textalign.Justify;
+import org.capaxit.imagegenerator.textalign.LeftAlign;
+import org.capaxit.imagegenerator.textalign.RightAlign;
+import org.capaxit.imagegenerator.util.Validate;
 
 /**
  * Implementation of the {@link org.capaxit.imagegenerator.TextImage} interface. The default font is
@@ -38,9 +53,6 @@ import java.util.Map;
  * This class is NOT threadsafe.
  */
 public final class TextImageImpl implements TextImage {
-    private static final String JPEG = "jpeg";
-    private static final int MAX_COMPRESSION = 1;
-    private static final String PNG = "png";
     private final int width;
 
     private final int height;
@@ -56,6 +68,8 @@ public final class TextImageImpl implements TextImage {
     private Margin margin = new Margin(0, 0, 0, 0);
 
     private boolean wrap = false;
+    
+    private boolean verticallyCentreText = false;
 
     private TextWrapper wrapper = new GreedyTextWrapper();
 
@@ -146,28 +160,53 @@ public final class TextImageImpl implements TextImage {
         this.wrap = enable;
         return this;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public TextImage verticallyCentreText(boolean enable) {
+		this.verticallyCentreText = enable;
+		return this;
+	}
 
     /**
      * {@inheritDoc}
      */
     public TextImage write(final String text) {
         Validate.notNull(text, "The text may not be null.");
-
+        
         FontMetrics fm = getFontMetrics();
         if (this.wrap) {
             int lineWidth = this.width - this.margin.getLeft() - this.margin.getRight();
             List<String> lines = this.wrapper.doWrap(text, lineWidth, fm);
+            if (this.verticallyCentreText) {
+            	this.doCentreTextVertically(lines.size());
+            }
             for (String line : lines) {
                 this.writeText(fm, line);
                 this.applyStyle(fm, line);
                 this.newLine();
             }
         } else {
+        	if (this.verticallyCentreText) {
+            	this.doCentreTextVertically(1);
+            }
             this.writeText(fm, text);
             this.applyStyle(fm, text);
         }
 
         return this;
+    }
+    
+    private int getLinesHeight(int numberOfLines) {
+    	return numberOfLines * getFontMetrics().getHeight();
+    }
+    
+    private void doCentreTextVertically(int numberOfLines) {
+    	int textHeight = getLinesHeight(numberOfLines);
+    	int freeHeight = this.height - textHeight;
+    	this.addVSpace(freeHeight / 2);
     }
 
     private void applyStyle(final FontMetrics fm, final String line) {

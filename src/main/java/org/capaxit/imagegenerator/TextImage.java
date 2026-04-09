@@ -54,6 +54,7 @@ public interface TextImage {
 	 * @return this
 	 */
 	TextImage addVSpace(int space);
+	
 	/**
 	 * Enables/disables the wrapping of text at the right end margin when the
 	 * methods are used with no explicit newline, like {@link #write(String)}.
@@ -63,6 +64,15 @@ public interface TextImage {
      * @return this
 	 */
 	TextImage wrap(boolean enable);
+	
+	/**
+	 * Enables/disables vertically centred text.
+	 * @param enable
+	 *            true enables vertically centred text, false disables
+	 *            vertically centred text.
+	 * @return this
+	 */
+	TextImage verticallyCentreText(boolean enable);
 
 	/**
 	 * @return The height of the image in pixels.

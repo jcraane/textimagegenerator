@@ -5,3 +5,9 @@ out
 .idea/**
 *.iml
 .iml
+/target/
+/install.bat
+/bin/
+/.settings/
+/.classpath
+/.project
